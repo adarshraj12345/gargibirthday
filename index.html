@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 19th Birthday, My Love!</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="hearts"></div>
+    <div class="container">
+        <header>
+            <h1>Happy 19th Birthday, GARGI!</h1>
+            <p class="subtitle">Celebrating you on June 16—my everything, today and always.</p>
+        </header>
+
+        <section class="countdown">
+            <h2>Counting Down to Your Day!</h2>
+            <div id="timer">
+                <span id="days">00</span> Days
+                <span id="hours">00</span> Hours
+                <span id="minutes">00</span> Minutes
+                <span id="seconds">00</span> Seconds
+            </div>
+        </section>
+
+        <section class="message">
+            <h2>A Note for You</h2>
+            <p>Dear GARGI,<br>
+               On this special June 16, as you turn 19, I'm reminded how you make every day brighter. You're the most amazing person I know, and your smile lights up my world. I'm so grateful for every moment we share. Here's to making more unforgettable memories together. I love you forever! 💖</p>
+        </section>
+
+        <section class="gallery">
+            <h2>Our Moments</h2>
+            <div class="photo-circle">
+                <img src="ChatGPT Image Jun 5, 2025, 01_38_16 AM.png" alt="Our Favorite Memory" class="center" onerror="this.src='https://via.placeholder.com/120'; console.log('Image failed, using placeholder');">
+                <img src="IMG-20250605-WA0002.jpg" alt="Memory 2" class="surround" onerror="this.onerror=null; this.src='https://via.placeholder.com/80'; console.log('Image failed, using placeholder');">
+                <img src="IMG-20250605-WA0014.jpg" alt="Memory 3" class="surround" onerror="this.onerror=null; this.src='https://via.placeholder.com/80'; console.log('Image failed, using placeholder');">
+                <img src="IMG-20250605-WA0015.jpg" alt="Memory 4" class="surround" onerror="this.onerror=null; this.src='https://via.placeholder.com/80'; console.log('Image failed, using placeholder');">
+                <img src="IMG-20250605-WA0022.jpg" alt="Memory 5" class="surround" onerror="this.onerror=null; this.src='https://via.placeholder.com/80'; console.log('Image failed, using placeholder');">
+                <img src="WhatsApp Image 2025-06-05 at 01.34.58_c10820e9.jpg" alt="Memory 6" class="surround" onerror="this.onerror=null; this.src='https://via.placeholder.com/80'; console.log('Image failed, using placeholder');">
+            </div>
+        </section>
+
+        <section class="surprise">
+            <button onclick="revealSurprise()">Click Here!</button>
+            <p id="surprise-text" class="hidden">I'm planning a special date night just for us—get ready for some pampering! 😘</p>
+        </section>
+    </div>
+
+    <audio id="background-audio" autoplay loop muted>
+        <source src="chori-kiya-re-jiya-full-song-dabangg-lyrical-video-salman-khan-sonakshi-sin_8SN7yo0k.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div id="love-heart" class="love-heart hidden">
+        <span>I love you soo soo much </span>
+    </div>
+
+    <script>
+        function revealSurprise() {
+            const surpriseText = document.getElementById('surprise-text');
+            surpriseText.classList.toggle('hidden');
+            surpriseText.classList.toggle('visible');
+        }
+
+        const birthday = new Date('June 16, 2025 00:00:00').getTime();
+        const timer = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = birthday - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days.toString().padStart(2, '0');
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById('timer').textContent = 'Happy Birthday!';
+                document.getElementById('love-heart').classList.remove('hidden');
+                document.getElementById('love-heart').classList.add('show');
+            }
+        }, 1000);
+
+        document.getElementById('background-audio').volume = 0.3;
+        document.addEventListener('click', function() {
+            const audio = document.getElementById('background-audio');
+            if (audio.muted) {
+                audio.muted = false;
+            }
+        });
+
+        document.querySelector('button').onclick = function() {
+            const audio = document.getElementById('background-audio');
+            audio.play().then(() => {
+                this.style.display = 'none';
+            }).catch(error => console.log('Audio play failed:', error));
+        };
+    </script>
+</body>
+</html>
