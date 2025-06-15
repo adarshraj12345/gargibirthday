@@ -8,6 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Balloon Container -->
+    <div id="balloon-container"></div>
+
     <div class="hearts"></div>
     <div class="container">
         <header>
@@ -55,7 +61,7 @@
     </audio>
 
     <div id="love-heart" class="love-heart hidden">
-        <span>I love you soo soo much </span>
+        <p><a href="https://adarshraj12345.github.io/heart/">I LOVE YOU</a></p>
     </div>
 
     <script>
@@ -85,6 +91,8 @@
                 document.getElementById('timer').textContent = 'Happy Birthday!';
                 document.getElementById('love-heart').classList.remove('hidden');
                 document.getElementById('love-heart').classList.add('show');
+                document.getElementById('heart-button').classList.remove('hidden');
+                document.getElementById('heart-button').classList.add('show');
             }
         }, 1000);
 
@@ -102,6 +110,72 @@
                 this.style.display = 'none';
             }).catch(error => console.log('Audio play failed:', error));
         };
+
+        // Confetti Setup
+        const confettiCanvas = document.getElementById('confetti-canvas');
+        confettiCanvas.width = window.innerWidth;
+        confettiCanvas.height = window.innerHeight;
+        const ctx = confettiCanvas.getContext('2d');
+
+        const confetti = Array.from({ length: 100 }, () => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            r: Math.random() * 6 + 4,
+            d: Math.random() * 10 + 5,
+            color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+            tilt: Math.random() * 10 - 10
+        }));
+
+        function drawConfetti() {
+            ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+            confetti.forEach(c => {
+                ctx.beginPath();
+                ctx.fillStyle = c.color;
+                ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            updateConfetti();
+            requestAnimationFrame(drawConfetti);
+        }
+
+        function updateConfetti() {
+            confetti.forEach(c => {
+                c.y += Math.sin(c.d) + 1;
+                c.x += Math.cos(c.d) / 2;
+                if (c.y > window.innerHeight) {
+                    c.y = 0;
+                    c.x = Math.random() * window.innerWidth;
+                }
+            });
+        }
+
+        drawConfetti();
+
+        // Balloon on click
+        document.addEventListener('click', function (e) {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.style.left = `${e.clientX}px`;
+            balloon.style.top = `${e.clientY}px`;
+            document.getElementById('balloon-container').appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 4000);
+        });
+
+        // Heart Trail
+        document.addEventListener('mousemove', function (e) {
+            const heart = document.createElement('div');
+            heart.className = 'heart-trail';
+            heart.style.left = `${e.pageX}px`;
+            heart.style.top = `${e.pageY}px`;
+            document.body.appendChild(heart);
+
+            setTimeout(() => {
+                heart.remove();
+            }, 1000);
+        });
     </script>
 </body>
 </html>
